@@ -11,7 +11,7 @@ import codecs
 name = 'codenamize'
 package = 'codenamize'
 description = 'Generate consistent easier-to-remember codenames from strings and numbers'
-url = 'https://github.com/jjmontesl/codenamize'
+url = 'http://github.com/jjmontesl/codenamize'
 author = 'Jose Juan Montes'
 author_email = 'jjmontes@gmail.com'
 license = 'MIT'
