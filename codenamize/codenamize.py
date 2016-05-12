@@ -1,13 +1,13 @@
 # codenamize module
-# Provides consistent codenames for objects
-# Jose Juan Montes 2015 - MIT License
-
+# Generate consistent easier-to-remember codenames from strings and numbers.
+# Jose Juan Montes 2015-2016 - MIT License
 
 """
 Returns consistent codenames for objects, by joining
 adjectives and words together. These are easier to remember and
-write down than pure numbers, and can be used instead or along UUID,
-GUID, hashes (MD5, SHA1...).
+write down than pure numbers, and can be used instead or along UUIDs,
+GUIDs, hashes (MD5, SHA...), network addresses or any other difficult
+to remember string.
 
 This can be used to replace identifiers or codes when presenting those to users.
 As words are easier to identify and remember for humans, this module maps
@@ -92,9 +92,10 @@ used.
     2 adj (max 7 chars) = 529483416 combinations
     2 adj (max 0 chars) = 1899320400 combinations
 
-An example is run if the module is executed directly.
+An example is shown by running  codenamize --tests .
 """
 
+import argparse
 
 ADJECTIVES = [
     "aback","abaft","abandoned","abashed","aberrant","abhorrent","abiding","abject","ablaze","able","abnormal","aboard","aboriginal","abortive","abounding","abrasive","abrupt","absent","absorbed","absorbing","abstracted","absurd","abundant","abusive","acceptable","accessible","accidental","accurate","acid","acidic","acoustic","acrid","actually","ad hoc","adamant","adaptable","addicted","adhesive","adjoining","adorable","adventurous","afraid","aggressive","agonizing","agreeable","ahead","ajar","alcoholic","alert","alike","alive","alleged","alluring","aloof","amazing","ambiguous","ambitious","amuck","amused","amusing","ancient","angry","animated","annoyed","annoying","anxious","apathetic","aquatic","aromatic","arrogant","ashamed","aspiring","assorted","astonishing","attractive","auspicious","automatic","available","average","awake","aware","awesome","awful","axiomatic",
@@ -279,7 +280,34 @@ def print_test():
 
 
 def main():
-    print_test()
+
+    parser = argparse.ArgumentParser(description='Generate consistent easier-to-remember codenames from strings and numbers.')
+    parser.add_argument('strings', nargs='*', help="One or more strings to codenamize.")
+    parser.add_argument('-p', '--prefix', dest='prefix', action='store', type=int, default=1, help='number of prefixes to use')
+    parser.add_argument('-m', '--maxchars', dest='maxchars', action='store', type=int, help='max word characters (0 for no limit)')
+    parser.add_argument('-j', '--join', dest='join', action='store', default="-", help='separator between words (default: -)')
+    parser.add_argument('-c', '--capitalize', dest='capitalize', action='store_true', help='capitalize words')
+    parser.add_argument('--space', dest='space', action='store_true', help='show codename space for the given arguments')
+    parser.add_argument('--tests', dest='tests', action='store_true', help='show information and samples')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.1')
+
+    args = parser.parse_args()
+
+    if args.tests:
+        print_test()
+        return
+
+    if args.space:
+        print codenamize_space(args.prefix, args.maxchars)
+        return
+
+    if len(args.strings) == 0:
+        parser.print_usage()
+        return
+
+    for o in args.strings:
+        print codenamize(o, args.prefix, args.maxchars, args.join, args.capitalize)
+
 
 if __name__ == "__main__":
     main()
