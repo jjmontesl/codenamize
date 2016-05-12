@@ -1,0 +1,11 @@
+[HEAD]
+
+  * Add command line option to read from standard input.
+  * Add command line option to take input as numbers.
+
+  * Blog post.
+  * Add CI (travis?), coverage (coverall?), and PyPI info and site badges to README.
+  * Add unit tests (using already written tests).
+  * Added missing doc to functions.
+  * Add info to README about command line usage.
+
