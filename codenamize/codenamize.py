@@ -6,8 +6,8 @@
 Returns consistent codenames for objects, by joining
 adjectives and words together. These are easier to remember and
 write down than pure numbers, and can be used instead or along UUIDs,
-GUIDs, hashes (MD5, SHA...), network addresses or any other difficult
-to remember string.
+GUIDs, hashes (MD5, SHA...), network addresses and other difficult
+to remember strings.
 
 This can be used to replace identifiers or codes when presenting those to users.
 As words are easier to identify and remember for humans, this module maps
@@ -65,7 +65,7 @@ For numbers 100000-100009 show codenames with 0-2 adjectives and different optio
     100008         bank   gaudy-bank  legal-gaudy-bank  Beyond, ToughBeyond, ChemicalToughBeyond
     100009        whole  slimy-whole giant-slimy-whole  Resolve, BoredResolve, IncandescentBoredResolve
 
-codename space sizes
+Codename space sizes
 --------------------
 
 In selecting the number of adjectives and max chars to use, consider how
