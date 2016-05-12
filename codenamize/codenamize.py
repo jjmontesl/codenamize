@@ -278,6 +278,9 @@ def print_test():
     print "  (u'100001', 1 adj, max 5) => %s (must be 'mushy-white')" % (codenamize(u'100001', 1, 5))
 
 
-if __name__ == "__main__":
+def main():
     print_test()
+
+if __name__ == "__main__":
+    main()
 

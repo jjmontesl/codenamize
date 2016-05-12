@@ -1,0 +1,7 @@
+[1.0.1]
+
+  * Refactored into Python package.
+
+[1.0.0]
+
+  * Initial version as imported from gist.
