@@ -33,8 +33,8 @@ How to install
         c. run python setup.py
 
 
-Usage
------
+Usage from Python
+-----------------
 
 Import the codenamize function:
 
@@ -68,6 +68,34 @@ Other options (max characters, join character, capitalize):
     'Tan Precious Ratio'
     >>> codenamize(0x123456aa, 5, 0, ' ', True)
     'Homeless Helpful Clean Tan Precious Ratio'
+
+
+Usage as command line tool
+--------------------------
+
+After installing, run `codenamize --help` for help:
+
+    usage: codenamize [-h] [-p PREFIX] [-m MAXCHARS] [-j JOIN] [-c] [--space]
+                      [--tests] [--version]
+                      [strings [strings ...]]
+
+    Generate consistent easier-to-remember codenames from strings and numbers.
+
+    positional arguments:
+      strings               One or more strings to codenamize.
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -p PREFIX, --prefix PREFIX
+                            number of prefixes to use
+      -m MAXCHARS, --maxchars MAXCHARS
+                            max word characters (0 for no limit)
+      -j JOIN, --join JOIN  separator between words (default: -)
+      -c, --capitalize      capitalize words
+      --space               show codename space for the given arguments
+      --tests               show information and samples
+      --version             show program's version number and exit
+
 
 Examples
 --------
