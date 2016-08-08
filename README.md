@@ -45,32 +45,34 @@ Import the codenamize function:
 
 Consecutive numbers yield differentiable codenames:
 
-    >>> codenamize(1)
-    'toothsome-sick'
-    >>> codenamize(2)
-    'periodic-white'
-
-Note that strings are different from integers:
-
     >>> codenamize("1")
-    'smoggy-nobody'
+    'familiar-grand'
+    >>> codenamize("2")
+    'little-tip'
 
 If you later want to add more adjectives, your existing codenames
 are retained as suffixes:
 
-    >>> codenamize(0x123456aa)
-    'precious-ratio'
-    >>> codenamize(0x123456aa, 2)
-    'tan-precious-ratio'
+    >>> codenamize("11:22:33:44:55:66")
+    'craven-delivery'
+    >>> codenamize("11:22:33:44:55:66", 2)
+    'separate-craven-delivery'
+
+Note that integers are internally converted to strings before hashing:
+
+    >>> codenamize(1)
+    'familiar-grand'
 
 Other options (max characters, join character, capitalize):
 
     >>> codenamize(0x123456aa, 2, 3, '', True)
-    'DryShyRip'
+    'SadBigFat'
     >>> codenamize(0x123456aa, 2, 0, '', True)
-    'Tan Precious Ratio'
+    'BrawnyEminentBear'
     >>> codenamize(0x123456aa, 5, 0, ' ', True)
-    'Homeless Helpful Clean Tan Precious Ratio'
+    'Spotty Disagreeable Modern Brawny Eminent Bear'
+    >>> codenamize(0x123456aa, 4, 0, ' ', False)
+    'disagreeable modern brawny eminent bear'
 
 
 Usage as command line tool
