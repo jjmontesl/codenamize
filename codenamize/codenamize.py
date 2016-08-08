@@ -22,32 +22,33 @@ Import the codenamize function:
 
 Consecutive numbers yield differentiable codenames:
 
-    >>> codenamize(1)
-    'toothsome-sick'
-    >>> codenamize(2)
-    'periodic-white'
-
-Note that strings are different from integers:
-
     >>> codenamize("1")
-    'smoggy-nobody'
+    'familiar-grand'
+    >>> codenamize("2")
+    'little-tip'
 
 If you later want to add more adjectives, your existing codenames
 are retained as suffixes:
 
-    >>> codenamize(0x123456aa)
-    'precious-ratio'
-    >>> codenamize(0x123456aa, 2)
-    'tan-precious-ratio'
+    >>> codenamize("11:22:33:44:55:66")
+    'craven-delivery'
+    >>> codenamize("11:22:33:44:55:66", 2)
+    'separate-craven-delivery'
+
+Integers are internally converted to strings:
+
+    >>> codenamize(1)
+    'familiar-grand'
 
 Other options (max characters, join character, capitalize):
 
     >>> codenamize(0x123456aa, 2, 3, '', True)
-    'DryShyRip'
+    'SadBigFat'
     >>> codenamize(0x123456aa, 2, 0, '', True)
-    'Tan Precious Ratio'
-    >>> codenamize(0x123456aa, 5, 0, ' ', True)
-    'Homeless Helpful Clean Tan Precious Ratio'
+    'BrawnyEminentBear'
+    >>> codenamize(0x123456aa, 4, 0, ' ', False)
+    'disagreeable modern brawny eminent bear'
+
 
 Examples
 --------
@@ -162,11 +163,11 @@ NOUNS_LENGTHS = { l: sum(1 for a in NOUNS if len(a) <= l) for l in (3, 4, 5, 6, 
 
 def codenamize_particles(obj = None, adjectives = 1, max_item_chars = 0, hash_algo = 'md5'):
     """
-    Returns an array a list of  consistent codename for the given object, by joining random
+    Returns an array a list of consistent codenames for the given object, by joining random
     adjectives and words together.
 
     Args:
-        obj (object): The object to assign a codename.
+        obj (int|string): The object to assign a codename.
         adjectives (int): Number of adjectives to use (default 1).
         max_item_chars (int): Max characters of each part of the codename (0 for no limit).
 
@@ -175,11 +176,6 @@ def codenamize_particles(obj = None, adjectives = 1, max_item_chars = 0, hash_al
 
     Using None as object will make this function return the size of the
     codename space for the given options as an integer.
-
-    Note: Integers and their equivalent string representations hash to different
-    values. Ensure you always use the same representation for your
-    objects when calculating codenames. See hash() documentation for more
-    information.
     """
 
     # Minimum length of 3 is required
@@ -200,6 +196,10 @@ def codenamize_particles(obj = None, adjectives = 1, max_item_chars = 0, hash_al
     if obj is None:
         return total_words
 
+    # Convert numbers to strings
+    if isinstance(obj, (int, long)):
+        obj = str(obj)
+
     hh = hashlib.new(hash_algo)
     hh.update(obj)
     obj_hash = long(hh.hexdigest(), 16) * 36413321723440003717
@@ -218,6 +218,7 @@ def codenamize_particles(obj = None, adjectives = 1, max_item_chars = 0, hash_al
 
 def codenamize_space(adjectives, max_item_chars, hash_algo = 'md5'):
     """
+    Returns the size of the codename space for the given parameters.
     """
 
     return codenamize_particles(None, adjectives, max_item_chars, hash_algo)
@@ -229,7 +230,7 @@ def codenamize(obj, adjectives = 1, max_item_chars = 0, join = "-", capitalize =
     adjectives and words together.
 
     Args:
-        obj (object): The object to assign a codename.
+        obj (int|string): The object to assign a codename.
         adjectives (int): Number of adjectives to use (default 1).
         max_item_chars (int): Max characters of each part of the codename (0 for no limit).
         join: (string) Stromg used to join codename parts (default "-").
@@ -237,11 +238,6 @@ def codenamize(obj, adjectives = 1, max_item_chars = 0, join = "-", capitalize =
 
     Changing max_item_length will produce different results for the same objects,
     so existing mapped codenames will change substantially.
-
-    Note: Integers and their equivalent string representations hash to different
-    values. Ensure you always use the same representation for your
-    objects when calculating codenames. See hash() documentation for more
-    information.
     """
 
     codename_particles = codenamize_particles(obj, adjectives, max_item_chars, hash_algo)
@@ -261,8 +257,7 @@ def print_test():
     Test and example function for the "codenamize" module.
     """
     print "OBJ       ADJ0-MAX5    ADJ1-MAX5         ADJ2-MAX5  ADJ-0, ADJ-1, ADJ-2 (capitalized, empty join character)"
-    for i in range(100001, 100010):
-        v = str(i)
+    for v in range(100001, 100010):
         print "%6s  %11s  %11s %17s  %s, %s, %s" % (v, codenamize(v, 0, 5), codenamize(v, 1, 5), codenamize(v, 2, 5),
                                                     codenamize(v, 0, 0, "", True), codenamize(v, 1, 0, "", True), codenamize(v, 2, 0, "", True))
 
@@ -272,8 +267,13 @@ def print_test():
             print "%d adj (max %d chars) = %d combinations" % (a, m, codenamize_space(a, m))
 
     print "TESTS"
-    print "  ('100001', 1 adj, max 5) => %s (must be 'mushy-white')" % (codenamize('100001', 1, 5))
-    print "  (u'100001', 1 adj, max 5) => %s (must be 'mushy-white')" % (codenamize(u'100001', 1, 5))
+    l1 = list(set( [ codenamize(a, 1, 3) for a in range(0, 2760 + 17) ] ))
+    l2 = list(set( [ codenamize(a, 2, 3) for a in range(0, 66240 + 17) ] ))
+    print "  (*, 1 adj, max 3) => %d distinct results (space size is %d)" % (len(l1), codenamize_space(1, 3))
+    print "  (*, 2 adj, max 3) => %d distinct results (space size is %d)" % (len(l2), codenamize_space(2, 3))
+    print "  (100001, 1 adj, max 5) => %s (must be 'funny-boat')" % (codenamize(100001, 1, 5))
+    print "  ('100001', 1 adj, max 5) => %s (must be 'funny-boat')" % (codenamize('100001', 1, 5))
+    print "  (u'100001', 1 adj, max 5) => %s (must be 'funny-boat')" % (codenamize(u'100001', 1, 5))
 
 
 def main():
@@ -290,7 +290,7 @@ def main():
     parser.add_argument('--tests', dest='tests', action='store_true', help='show information and samples')
     parser.add_argument('--list_algorithms', dest='list_algorithms', action='store_true',
                         help='List the hash algorithms available')
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0.1')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.1.0')
 
     args = parser.parse_args()
 

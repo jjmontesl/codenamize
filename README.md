@@ -18,6 +18,9 @@ This can be used to replace identifiers or codes when presenting those to users.
 As words are easier to identify and remember for humans, this module maps
 Python objects to easy to remember words.
 
+*Note*: Version 1.1.0 introduces changes the hashing algorithm which breaks
+compatibility with previous generated codenames.
+
 
 How to install
 ==============
@@ -90,10 +93,13 @@ After installing, run `codenamize --help` for help:
                             number of prefixes to use
       -m MAXCHARS, --maxchars MAXCHARS
                             max word characters (0 for no limit)
+      -a HASH_ALGO, --hash_algorithm HASH_ALGO
+                            the algorithm to use to hash the input value
       -j JOIN, --join JOIN  separator between words (default: -)
       -c, --capitalize      capitalize words
       --space               show codename space for the given arguments
       --tests               show information and samples
+      --list_algorithms     List the hash algorithms available
       --version             show program's version number and exit
 
 
@@ -103,15 +109,16 @@ Examples
 For numbers 100000-100009, show codenames with 0-2 adjectives and different options:
 
     OBJ       ADJ0-MAX5    ADJ1-MAX5         ADJ2-MAX5  ADJ-0, ADJ-1, ADJ-2 (capitalized, empty join character)
-    100001         mall   messy-mall   four-messy-mall  Location, ZestyLocation, RudeZestyLocation
-    100002         chip   white-chip   bent-white-chip  Put, DaffyPut, AmusingDaffyPut
-    100003          can     many-can      fat-many-can  Bench, BadBench, ImperfectBadBench
-    100004        royal  dizzy-royal tough-dizzy-royal  Estate, ToothsomeEstate, GoofyToothsomeEstate
-    100005        doubt  rabid-doubt spicy-rabid-doubt  Audience, PeriodicAudience, NaughtyPeriodicAudience
-    100006         song     sad-song    ritzy-sad-song  Car, SmilingCar, HistoricalSmilingCar
-    100007         joke    shut-joke   nifty-shut-joke  Task, StrongTask, SwiftStrongTask
-    100008         bank   gaudy-bank  legal-gaudy-bank  Beyond, ToughBeyond, ChemicalToughBeyond
-    100009        whole  slimy-whole giant-slimy-whole  Resolve, BoredResolve, IncandescentBoredResolve
+    100001         boat   funny-boat   real-funny-boat  Community, RacialCommunity, PluckyRacialCommunity
+    100002        award  first-award  tidy-first-award  Repeat, UptightRepeat, HelpfulUptightRepeat
+    100003         rush   super-rush  equal-super-rush  Intention, ExpensiveIntention, JazzyExpensiveIntention
+    100004        uncle   calm-uncle   icky-calm-uncle  March, SubduedMarch, AdamantSubduedMarch
+    100005        salad   warm-salad   true-warm-salad  Plant, QuickestPlant, ReminiscentQuickestPlant
+    100006         gift   witty-gift    odd-witty-gift  Estimate, CreepyEstimate, SpectacularCreepyEstimate
+    100007          son     zany-son    gaudy-zany-son  Truck, MiniatureTruck, OptimalMiniatureTruck
+    100008        angle   damp-angle  dusty-damp-angle  Steak, SpectacularSteak, RightfulSpectacularSteak
+    100009         link   utter-link   null-utter-link  Bike, ImportantBike, SweetImportantBike
+
 
 Codename space sizes
 --------------------

@@ -1,3 +1,9 @@
+[1.1.0]
+
+  * Now supporting Python 3.
+  * Hashing algorithm now uses a consistent implementation (thanks hcraT). This
+    breaks compatibility with existing codenames.
+
 [1.0.1]
 
   * Refactored into Python package.
