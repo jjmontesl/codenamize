@@ -18,9 +18,6 @@ This can be used to replace identifiers or codes when presenting those to users.
 As words are easier to identify and remember for humans, this module maps
 Python objects to easy to remember words.
 
-*Note*: Version 1.1.0 introduces changes the hashing algorithm which breaks
-compatibility with previous generated codenames.
-
 
 How to install
 ==============
