@@ -15,7 +15,7 @@ url = 'http://github.com/jjmontesl/codenamize'
 author = 'Jose Juan Montes'
 author_email = 'jjmontes@gmail.com'
 license = 'MIT'
-install_requires = []
+install_requires = ['six']
 classifiers = [
     'Development Status :: 5 - Production/Stable',
     'Intended Audience :: Developers',

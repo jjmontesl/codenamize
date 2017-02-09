@@ -11,6 +11,6 @@ for i in range(0, 2760 * 100):
     counts[res] = counts[res] + 1
 
 for k, v in counts.items():
-    print "%s %s" % (k, v)
-print "Length: %d (expected 2760)" % (len(counts))
+    print("%s %s" % (k, v))
+print("Length: %d (expected 2760)" % (len(counts)))
 

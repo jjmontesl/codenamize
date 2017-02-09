@@ -1,6 +1,7 @@
 # codenamize module
 # Generate consistent easier-to-remember codenames from strings and numbers.
 # Jose Juan Montes 2015-2016 - MIT License
+import six
 
 """
 Returns consistent codenames for objects, by joining
@@ -98,6 +99,7 @@ An example is shown by running  codenamize --tests .
 
 import argparse
 import hashlib
+import functools
 
 ADJECTIVES = [
     "aback","abaft","abandoned","abashed","aberrant","abhorrent","abiding","abject","ablaze","able","abnormal","aboard","aboriginal","abortive","abounding","abrasive","abrupt","absent","absorbed","absorbing","abstracted","absurd","abundant","abusive","acceptable","accessible","accidental","accurate","acid","acidic","acoustic","acrid","actually","ad hoc","adamant","adaptable","addicted","adhesive","adjoining","adorable","adventurous","afraid","aggressive","agonizing","agreeable","ahead","ajar","alcoholic","alert","alike","alive","alleged","alluring","aloof","amazing","ambiguous","ambitious","amuck","amused","amusing","ancient","angry","animated","annoyed","annoying","anxious","apathetic","aquatic","aromatic","arrogant","ashamed","aspiring","assorted","astonishing","attractive","auspicious","automatic","available","average","awake","aware","awesome","awful","axiomatic",
@@ -190,19 +192,22 @@ def codenamize_particles(obj = None, adjectives = 1, max_item_chars = 0, hash_al
         particles[0] = NOUNS[:NOUNS_LENGTHS[max_item_chars]]
         particles[1:] = [ ADJECTIVES[:ADJECTIVES_LENGTHS[max_item_chars]] for _ in range(0, adjectives) ]
 
-    total_words = reduce(lambda a, b: a * b, [len(p) for p in particles], 1)
+    total_words = functools.reduce(lambda a, b: a * b, [len(p) for p in particles], 1)
 
     # Return size of codename space if no object is passed
     if obj is None:
         return total_words
 
     # Convert numbers to strings
-    if isinstance(obj, (int, long)):
+    if isinstance(obj, six.integer_types):
         obj = str(obj)
+
+    if isinstance(obj, six.text_type):
+        obj = obj.encode('utf-8')
 
     hh = hashlib.new(hash_algo)
     hh.update(obj)
-    obj_hash = long(hh.hexdigest(), 16) * 36413321723440003717
+    obj_hash = int(hh.hexdigest(), 16) * 36413321723440003717
 
     # Calculate codename words
     index = obj_hash % total_words
@@ -256,24 +261,24 @@ def print_test():
     """
     Test and example function for the "codenamize" module.
     """
-    print "OBJ       ADJ0-MAX5    ADJ1-MAX5         ADJ2-MAX5  ADJ-0, ADJ-1, ADJ-2 (capitalized, empty join character)"
+    print("OBJ       ADJ0-MAX5    ADJ1-MAX5         ADJ2-MAX5  ADJ-0, ADJ-1, ADJ-2 (capitalized, empty join character)")
     for v in range(100001, 100010):
-        print "%6s  %11s  %11s %17s  %s, %s, %s" % (v, codenamize(v, 0, 5), codenamize(v, 1, 5), codenamize(v, 2, 5),
-                                                    codenamize(v, 0, 0, "", True), codenamize(v, 1, 0, "", True), codenamize(v, 2, 0, "", True))
+        print("%6s  %11s  %11s %17s  %s, %s, %s" % (v, codenamize(v, 0, 5), codenamize(v, 1, 5), codenamize(v, 2, 5),
+                                                    codenamize(v, 0, 0, "", True), codenamize(v, 1, 0, "", True), codenamize(v, 2, 0, "", True)))
 
-    print "codenamize SPACE SIZES"
+    print("codenamize SPACE SIZES")
     for a in range(0, 3):
         for m in (3, 4, 5, 6, 7, 0):
-            print "%d adj (max %d chars) = %d combinations" % (a, m, codenamize_space(a, m))
+            print("%d adj (max %d chars) = %d combinations" % (a, m, codenamize_space(a, m)))
 
-    print "TESTS"
+    print("TESTS")
     l1 = list(set( [ codenamize(a, 1, 3) for a in range(0, 2760 + 17) ] ))
     l2 = list(set( [ codenamize(a, 2, 3) for a in range(0, 66240 + 17) ] ))
-    print "  (*, 1 adj, max 3) => %d distinct results (space size is %d)" % (len(l1), codenamize_space(1, 3))
-    print "  (*, 2 adj, max 3) => %d distinct results (space size is %d)" % (len(l2), codenamize_space(2, 3))
-    print "  (100001, 1 adj, max 5) => %s (must be 'funny-boat')" % (codenamize(100001, 1, 5))
-    print "  ('100001', 1 adj, max 5) => %s (must be 'funny-boat')" % (codenamize('100001', 1, 5))
-    print "  (u'100001', 1 adj, max 5) => %s (must be 'funny-boat')" % (codenamize(u'100001', 1, 5))
+    print("  (*, 1 adj, max 3) => %d distinct results (space size is %d)" % (len(l1), codenamize_space(1, 3)))
+    print("  (*, 2 adj, max 3) => %d distinct results (space size is %d)" % (len(l2), codenamize_space(2, 3)))
+    print("  (100001, 1 adj, max 5) => %s (must be 'funny-boat')" % (codenamize(100001, 1, 5)))
+    print("  ('100001', 1 adj, max 5) => %s (must be 'funny-boat')" % (codenamize('100001', 1, 5)))
+    print("  (u'100001', 1 adj, max 5) => %s (must be 'funny-boat')" % (codenamize(u'100001', 1, 5)))
 
 
 def main():
@@ -290,7 +295,7 @@ def main():
     parser.add_argument('--tests', dest='tests', action='store_true', help='show information and samples')
     parser.add_argument('--list_algorithms', dest='list_algorithms', action='store_true',
                         help='List the hash algorithms available')
-    parser.add_argument('--version', action='version', version='%(prog)s 1.1.0')
+    parser.add_argument('--version', action='version', version='clementine-remote 1.0.0')
 
     args = parser.parse_args()
 
@@ -304,7 +309,7 @@ def main():
         return
 
     if args.space:
-        print codenamize_space(args.prefix, args.maxchars, args.hash_algo)
+        print(codenamize_space(args.prefix, args.maxchars, args.hash_algo))
         return
 
     if len(args.strings) == 0:
@@ -312,7 +317,7 @@ def main():
         return
 
     for o in args.strings:
-        print codenamize(o, args.prefix, args.maxchars, args.join, args.capitalize, args.hash_algo)
+        print(codenamize(o, args.prefix, args.maxchars, args.join, args.capitalize, args.hash_algo))
 
 
 if __name__ == "__main__":
