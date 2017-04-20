@@ -100,7 +100,7 @@ An example is shown by running  codenamize --tests .
 import argparse
 import hashlib
 import functools
-import codenamize as codenamize_module
+import sys
 
 ADJECTIVES = [
     "aback","abaft","abandoned","abashed","aberrant","abhorrent","abiding","abject","ablaze","able","abnormal","aboard","aboriginal","abortive","abounding","abrasive","abrupt","absent","absorbed","absorbing","abstracted","absurd","abundant","abusive","acceptable","accessible","accidental","accurate","acid","acidic","acoustic","acrid","actually","ad hoc","adamant","adaptable","addicted","adhesive","adjoining","adorable","adventurous","afraid","aggressive","agonizing","agreeable","ahead","ajar","alcoholic","alert","alike","alive","alleged","alluring","aloof","amazing","ambiguous","ambitious","amuck","amused","amusing","ancient","angry","animated","annoyed","annoying","anxious","apathetic","aquatic","aromatic","arrogant","ashamed","aspiring","assorted","astonishing","attractive","auspicious","automatic","available","average","awake","aware","awesome","awful","axiomatic",
@@ -296,12 +296,12 @@ def main():
     parser.add_argument('--tests', dest='tests', action='store_true', help='show information and samples')
     parser.add_argument('--list_algorithms', dest='list_algorithms', action='store_true',
                         help='List the hash algorithms available')
-    parser.add_argument('--version', action='version', version='codenamize %s' % (codenamize_module.__version__))
+    parser.add_argument('--version', action='version', version='codenamize %s' % ("1.2.2"))
 
     args = parser.parse_args()
 
     if args.list_algorithms:
-        for a in hashlib.algorithms_available:
+        for a in hashlib.algorithms:
             print(a)
         return
 

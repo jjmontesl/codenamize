@@ -1,4 +1,4 @@
-[1.2.1]
+[1.2.2]
 
   * Fixed bug when using command line without parameter -m.
   * Complete Python 2 and 3 support (fixed several 2 & 3 bugs).
