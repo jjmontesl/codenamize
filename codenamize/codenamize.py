@@ -286,7 +286,7 @@ def main():
     parser = argparse.ArgumentParser(description='Generate consistent easier-to-remember codenames from strings and numbers.')
     parser.add_argument('strings', nargs='*', help="One or more strings to codenamize.")
     parser.add_argument('-p', '--prefix', dest='prefix', action='store', type=int, default=1, help='number of prefixes to use')
-    parser.add_argument('-m', '--maxchars', dest='maxchars', action='store', type=int, help='max word characters (0 for no limit)')
+    parser.add_argument('-m', '--maxchars', dest='maxchars', action='store', type=int, default=0, help='max word characters (0 for no limit)')
     parser.add_argument('-a', '--hash_algorithm', dest='hash_algo', action='store', type=str, default = 'md5',
                         help='the algorithm to use to hash the input value')
     parser.add_argument('-j', '--join', dest='join', action='store', default="-", help='separator between words (default: -)')
