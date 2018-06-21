@@ -1,3 +1,9 @@
+[1.2.3]
+
+  * Fixed --list_algorithms error affecting Python 3.
+  * Updated docstring text to match current version test results.
+  * Added default algorithm information to help text.
+
 [1.2.2]
 
   * Fixed bug when using command line without parameter -m.

@@ -57,15 +57,15 @@ Examples
 For numbers 100000-100009 show codenames with 0-2 adjectives and different options:
 
     OBJ       ADJ0-MAX5    ADJ1-MAX5         ADJ2-MAX5  ADJ-0, ADJ-1, ADJ-2 (capitalized, empty join character)
-    100001         mall   messy-mall   four-messy-mall  Location, ZestyLocation, RudeZestyLocation
-    100002         chip   white-chip   bent-white-chip  Put, DaffyPut, AmusingDaffyPut
-    100003          can     many-can      fat-many-can  Bench, BadBench, ImperfectBadBench
-    100004        royal  dizzy-royal tough-dizzy-royal  Estate, ToothsomeEstate, GoofyToothsomeEstate
-    100005        doubt  rabid-doubt spicy-rabid-doubt  Audience, PeriodicAudience, NaughtyPeriodicAudience
-    100006         song     sad-song    ritzy-sad-song  Car, SmilingCar, HistoricalSmilingCar
-    100007         joke    shut-joke   nifty-shut-joke  Task, StrongTask, SwiftStrongTask
-    100008         bank   gaudy-bank  legal-gaudy-bank  Beyond, ToughBeyond, ChemicalToughBeyond
-    100009        whole  slimy-whole giant-slimy-whole  Resolve, BoredResolve, IncandescentBoredResolve
+    100001         boat   funny-boat   real-funny-boat  Community, RacialCommunity, PluckyRacialCommunity
+    100002        award  first-award  tidy-first-award  Repeat, UptightRepeat, HelpfulUptightRepeat
+    100003         rush   super-rush  equal-super-rush  Intention, ExpensiveIntention, JazzyExpensiveIntention
+    100004        uncle   calm-uncle   icky-calm-uncle  March, SubduedMarch, AdamantSubduedMarch
+    100005        salad   warm-salad   true-warm-salad  Plant, QuickestPlant, ReminiscentQuickestPlant
+    100006         gift   witty-gift    odd-witty-gift  Estimate, CreepyEstimate, SpectacularCreepyEstimate
+    100007          son     zany-son    gaudy-zany-son  Truck, MiniatureTruck, OptimalMiniatureTruck
+    100008        angle   damp-angle  dusty-damp-angle  Steak, SpectacularSteak, RightfulSpectacularSteak
+    100009         link   utter-link   null-utter-link  Bike, ImportantBike, SweetImportantBike
 
 Codename space sizes
 --------------------
@@ -208,7 +208,7 @@ def codenamize_particles(obj = None, adjectives = 1, max_item_chars = 0, hash_al
 
     hh = hashlib.new(hash_algo)
     hh.update(obj)
-    obj_hash = int(hh.hexdigest(), 16) * 36413321723440003717
+    obj_hash = int(hh.hexdigest(), 16) * 36413321723440003717  # TODO: With next breaking change, remove the prime factor (and test)
 
     # Calculate codename words
     index = obj_hash % total_words
@@ -288,20 +288,20 @@ def main():
     parser.add_argument('strings', nargs='*', help="One or more strings to codenamize.")
     parser.add_argument('-p', '--prefix', dest='prefix', action='store', type=int, default=1, help='number of prefixes to use')
     parser.add_argument('-m', '--maxchars', dest='maxchars', action='store', type=int, default=0, help='max word characters (0 for no limit)')
-    parser.add_argument('-a', '--hash_algorithm', dest='hash_algo', action='store', type=str, default = 'md5',
-                        help='the algorithm to use to hash the input value')
+    parser.add_argument('-a', '--hash_algorithm', dest='hash_algo', action='store', type=str, default='md5',
+                        help='the algorithm to use to hash the input value (default: md5)')
     parser.add_argument('-j', '--join', dest='join', action='store', default="-", help='separator between words (default: -)')
     parser.add_argument('-c', '--capitalize', dest='capitalize', action='store_true', help='capitalize words')
     parser.add_argument('--space', dest='space', action='store_true', help='show codename space for the given arguments')
     parser.add_argument('--tests', dest='tests', action='store_true', help='show information and samples')
     parser.add_argument('--list_algorithms', dest='list_algorithms', action='store_true',
                         help='List the hash algorithms available')
-    parser.add_argument('--version', action='version', version='codenamize %s' % ("1.2.2"))
+    parser.add_argument('--version', action='version', version='codenamize %s' % ("1.2.3"))
 
     args = parser.parse_args()
 
     if args.list_algorithms:
-        for a in hashlib.algorithms:
+        for a in hashlib.algorithms_available:
             print(a)
         return
 

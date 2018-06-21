@@ -8,7 +8,7 @@ Overview
 ========
 
 **Codenamize** is a command line tool and Python library that
-returns consistent codenames for objects, by joining
+returns consistent names for objects, by joining
 adjectives and words together. These are easier to remember and
 write down than pure numbers, and can be used instead or along UUIDs,
 GUIDs, hashes (MD5, SHA...), network addresses and other difficult
@@ -94,6 +94,7 @@ After installing, run `codenamize --help` for help:
                             max word characters (0 for no limit)
       -a HASH_ALGO, --hash_algorithm HASH_ALGO
                             the algorithm to use to hash the input value
+                            (default: md5)
       -j JOIN, --join JOIN  separator between words (default: -)
       -c, --capitalize      capitalize words
       --space               show codename space for the given arguments
