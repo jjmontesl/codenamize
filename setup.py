@@ -10,7 +10,8 @@ import codecs
 
 name = 'codenamize'
 package = 'codenamize'
-description = 'Generate consistent easier-to-remember codenames from strings and numbers'
+description = 'Generate consistent easier-to-remember names from strings and numbers'
+long_description = 'Codenamize generates consistent easier-to-remember names for strings and numbers. It is a command line tool and Python library that returns consistent codenames for objects, by joining adjectives and words together.'
 url = 'http://github.com/jjmontesl/codenamize'
 author = 'Jose Juan Montes'
 author_email = 'jjmontes@gmail.com'

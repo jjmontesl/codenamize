@@ -18,6 +18,7 @@ This can be used to replace identifiers or codes when presenting those to users.
 As words are easier to identify and remember for humans, this module maps
 Python objects to easy to remember words.
 
+There's also a Ruby port available: [concode](https://github.com/DannyBen/concode).
 
 How to install
 ==============
@@ -148,6 +149,12 @@ used.
     2 adj (max 0 chars) = 1899320400 combinations
 
 An example is shown by running  codenamize --tests .
+
+
+Other versions
+==============
+
+* [Concode](https://github.com/DannyBen/concode) - Ruby port (thanks to Danny Ben Shitrit)
 
 
 License
