@@ -18,7 +18,7 @@ This can be used to replace identifiers or codes when presenting those to users.
 As words are easier to identify and remember for humans, this module maps
 Python objects to easy to remember words.
 
-There's also a Ruby port available: [concode](https://github.com/DannyBen/concode).
+There are also [Ruby](https://github.com/DannyBen/concode), and [JavaScript](https://github.com/stemail23/codenamize-js) ports available.
 
 How to install
 ==============
@@ -155,6 +155,7 @@ Other versions
 ==============
 
 * [Concode](https://github.com/DannyBen/concode) - Ruby port (thanks to Danny Ben Shitrit)
+* [Codenamize JS](https://github.com/stemail23/codenamize-js) - JavaScript port (by Steven Barlow)
 
 
 License
