@@ -150,6 +150,10 @@ used.
 
 An example is shown by running  codenamize --tests .
 
+Usage Examples
+==============
+
+See in [example folder](./examples) an example of file renaming based on this library
 
 Other versions
 ==============
